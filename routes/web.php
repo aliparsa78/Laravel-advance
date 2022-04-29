@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +22,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::get('send-mail', function () {
+   
+    $details = [
+        'title' => 'for helping me more',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to('aliparsa883@gmail.com')->send(new \App\Mail\NotifyMail($details));
+   
+    dd("Email is Sent.");
+});
