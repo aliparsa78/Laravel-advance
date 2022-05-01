@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\TestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +35,5 @@ Route::get('send-mail', function () {
    
     dd("Email is Sent.");
 });
+
+Route::get('test',[TestController::class,'test']);
