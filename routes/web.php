@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\TestController;
-use App\Jobs\WelcomeJob;
-use App\Jobs\ProcessPayment;
-use App\Jobs\SendEmail;
+use Illuminate\Support\Facades\Bus;
+use App\Jobs\TestJob;
+use App\Jobs\Test2Job;
+use App\Jobs\Test3Job;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,11 +19,14 @@ use App\Jobs\SendEmail;
 */
 
 Route::get('/', function () {
-    // foreach(range(1,20) as $id){
-    //     WelcomeJob::dispatch();
-    // }
-    // ProcessPayment::dispatch()->onQueue('payments');
-    SendEmail::dispatch();
+    $batch = [
+        new TestJob('job number 1'),
+        new TestJob('job number 2'),
+        new TestJob('job number 3'),
+       
+    ];
+    Bus::batch($batch)->dispatch();
+
 return view('welcome');
 });
 
