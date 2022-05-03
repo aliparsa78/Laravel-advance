@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\TestController;
 use App\Jobs\WelcomeJob;
+use App\Jobs\ProcessPayment;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,10 +17,12 @@ use App\Jobs\WelcomeJob;
 */
 
 Route::get('/', function () {
-     WelcomeJob::dispatch();
-    
-    return view('welcome');
+    foreach(range(1,20) as $id){
+        WelcomeJob::dispatch();
+    }
 });
+ProcessPayment::dispatch()->onQueue('payments');
+return view('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
