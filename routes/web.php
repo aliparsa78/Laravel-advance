@@ -5,6 +5,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\TestController;
 use App\Jobs\WelcomeJob;
 use App\Jobs\ProcessPayment;
+use App\Jobs\SendEmail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,12 +18,14 @@ use App\Jobs\ProcessPayment;
 */
 
 Route::get('/', function () {
-    foreach(range(1,20) as $id){
-        WelcomeJob::dispatch();
-    }
-});
-ProcessPayment::dispatch()->onQueue('payments');
+    // foreach(range(1,20) as $id){
+    //     WelcomeJob::dispatch();
+    // }
+    // ProcessPayment::dispatch()->onQueue('payments');
+    SendEmail::dispatch();
 return view('welcome');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
