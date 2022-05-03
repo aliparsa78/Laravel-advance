@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\TestController;
+use App\Jobs\WelcomeJob;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,8 @@ use App\Http\Controllers\TestController;
 */
 
 Route::get('/', function () {
+     WelcomeJob::dispatch();
+    
     return view('welcome');
 });
 
